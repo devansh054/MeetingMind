@@ -11,9 +11,9 @@
   status = 200
 
 [context.production.environment]
-  VITE_API_URL = "https://meetingmind-backend.onrender.com"
+  VITE_API_URL = "https://meeting-mind-vtjm.onrender.com"
   VITE_AI_SERVICE_URL = "https://meetingmind-ai.onrender.com"
 
 [context.deploy-preview.environment]
-  VITE_API_URL = "https://meetingmind-backend.onrender.com"
+  VITE_API_URL = "https://meeting-mind-vtjm.onrender.com"
   VITE_AI_SERVICE_URL = "https://meetingmind-ai.onrender.com"
