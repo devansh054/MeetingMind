@@ -397,7 +397,6 @@ export default function MeetingInterface() {
             <DialogDescription>Collaborative drawing with AI shape recognition</DialogDescription>
           </DialogHeader>
           <div className="flex-1 overflow-hidden">
-            {console.log("[v0] Rendering VirtualWhiteboard component")}
             <VirtualWhiteboard />
           </div>
         </DialogContent>
@@ -410,7 +409,6 @@ export default function MeetingInterface() {
             <DialogDescription>Real-time markup tools for presentations</DialogDescription>
           </DialogHeader>
           <div className="overflow-hidden">
-            {console.log("[v0] Rendering ScreenAnnotation component")}
             <ScreenAnnotation />
           </div>
         </DialogContent>
@@ -423,7 +421,6 @@ export default function MeetingInterface() {
             <DialogDescription>AI-powered room management</DialogDescription>
           </DialogHeader>
           <div className="overflow-hidden">
-            {console.log("[v0] Rendering BreakoutRooms component")}
             <BreakoutRooms />
           </div>
         </DialogContent>
@@ -436,7 +433,6 @@ export default function MeetingInterface() {
             <DialogDescription>Real-time ROI and efficiency tracking</DialogDescription>
           </DialogHeader>
           <div className="overflow-hidden">
-            {console.log("[v0] Rendering MeetingCostCalculator component")}
             <MeetingCostCalculator />
           </div>
         </DialogContent>

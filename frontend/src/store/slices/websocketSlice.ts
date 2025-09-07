@@ -27,7 +27,7 @@ const websocketSlice = createSlice({
   initialState,
   reducers: {
     setSocket: (state, action: PayloadAction<Socket | null>) => {
-      state.socket = action.payload;
+      state.socket = action.payload as any;
     },
     setConnected: (state, action: PayloadAction<boolean>) => {
       state.isConnected = action.payload;
