@@ -6,7 +6,7 @@ const config = {
   
   // Database
   databaseUrl: process.env.DATABASE_URL,
-  redisUrl: process.env.REDIS_URL,
+  redisUrl: process.env.REDIS_URL, // Optional for demo deployment
   
   // JWT
   jwtSecret: process.env.JWT_SECRET,

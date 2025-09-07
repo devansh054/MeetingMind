@@ -7,6 +7,7 @@ const rateLimit = require('express-rate-limit');
 
 const config = require('./config');
 const { initializeDatabase } = require('./config/database');
+const { initializeDatabase: initDbSchema } = require('./scripts/initDb');
 const authRoutes = require('./routes/auth');
 const meetingRoutes = require('./routes/meetings');
 const analyticsRoutes = require('./routes/analytics');
@@ -136,6 +137,9 @@ const startServer = async () => {
   try {
     // Initialize database connections
     await initializeDatabase();
+    
+    // Initialize database schema
+    await initDbSchema();
     
     server.listen(config.port, () => {
       logger.info(`MeetingMind API server running on port ${config.port}`);

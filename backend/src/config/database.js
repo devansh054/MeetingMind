@@ -1,5 +1,4 @@
 const { Pool } = require('pg');
-const redis = require('redis');
 
 // PostgreSQL connection
 const pool = new Pool({
@@ -10,18 +9,41 @@ const pool = new Pool({
   connectionTimeoutMillis: 2000,
 });
 
-// Redis connection
-const redisClient = redis.createClient({
-  url: process.env.REDIS_URL,
-});
+// Redis connection (optional for demo)
+let redisClient = null;
+let redisAvailable = false;
 
-redisClient.on('error', (err) => {
-  console.error('Redis Client Error:', err);
-});
+const initializeRedis = async () => {
+  if (!process.env.REDIS_URL) {
+    console.log('Redis URL not configured - running without Redis cache');
+    return null;
+  }
 
-redisClient.on('connect', () => {
-  console.log('Connected to Redis');
-});
+  try {
+    const redis = require('redis');
+    redisClient = redis.createClient({
+      url: process.env.REDIS_URL,
+    });
+
+    redisClient.on('error', (err) => {
+      console.error('Redis Client Error:', err);
+      redisAvailable = false;
+    });
+
+    redisClient.on('connect', () => {
+      console.log('Connected to Redis');
+      redisAvailable = true;
+    });
+
+    await redisClient.connect();
+    return redisClient;
+  } catch (error) {
+    console.warn('Redis connection failed, continuing without cache:', error.message);
+    redisClient = null;
+    redisAvailable = false;
+    return null;
+  }
+};
 
 // Initialize connections
 const initializeDatabase = async () => {
@@ -31,8 +53,8 @@ const initializeDatabase = async () => {
     console.log('Connected to PostgreSQL');
     client.release();
 
-    // Connect to Redis
-    await redisClient.connect();
+    // Try to connect to Redis (optional)
+    await initializeRedis();
     
     return { pool, redisClient };
   } catch (error) {
@@ -41,8 +63,12 @@ const initializeDatabase = async () => {
   }
 };
 
+// Helper function to check if Redis is available
+const isRedisAvailable = () => redisAvailable && redisClient;
+
 module.exports = {
   pool,
   redisClient,
   initializeDatabase,
+  isRedisAvailable,
 };
