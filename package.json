@@ -1,0 +1,31 @@
+{
+  "name": "meetingmind",
+  "version": "1.0.0",
+  "description": "AI Meeting Assistant with Smart Workflow Automation",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\" \"npm run dev:ai\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:ai": "cd ai-service && uvicorn main:app --reload --host 0.0.0.0 --port 8000",
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "setup": "npm run install:all && cp backend/.env.example backend/.env",
+    "install:all": "cd backend && npm install && cd ../frontend && npm install && cd ../ai-service && pip install -r requirements.txt"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "ai",
+    "meeting",
+    "transcription",
+    "automation",
+    "webrtc"
+  ],
+  "author": "MeetingMind Team",
+  "license": "MIT"
+}
